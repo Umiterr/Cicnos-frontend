@@ -16,7 +16,7 @@ const posts = [
     },
   },
   {
-    id: 1,
+    id: 2,
     title: "Boost your conversion rate",
     href: "#",
     description:
@@ -32,7 +32,7 @@ const posts = [
     },
   },
   {
-    id: 1,
+    id: 3,
     title: "Boost your conversion rate",
     href: "#",
     description:

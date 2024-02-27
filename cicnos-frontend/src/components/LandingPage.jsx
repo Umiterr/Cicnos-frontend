@@ -45,7 +45,7 @@ const posts = [
 
 export default function LandingPage() {
   return (
-    <div className="bg-white py-24 bg-opacity-0 relative z-10">
+    <div className="bg-white  bg-opacity-0 relative z-10 pt-24 pb-40">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="items-center justify-center mx-auto grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {posts.map((post) => (
@@ -67,6 +67,11 @@ export default function LandingPage() {
           ))}
         </div>
       </div>
+      <h2 className="quote">
+        Todo lo que una persona puede imaginar, otras pueden hacerlo realidad.
+        <br />
+        -Julio Verne
+      </h2>
     </div>
   );
 }

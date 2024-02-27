@@ -34,18 +34,18 @@ export default function Header() {
 
   return (
     <header className="bg-white flex bg-opacity-0 relative z-20">
-      <div className="flex lg:flex-1">
-        <a href="#" className="-m-1.5 p-1.5">
-          <span className="sr-only">Your Company</span>
+      <div className="flex lg:flex-1- max-w-[300px]">
+        <a href="#" className="max-w-300 -m-1.5 p-1.5">
+          <span className="sr-only">Cicnos</span>
           <img
-            className=" w-auto"
+            className="p-4 "
             src="../public/logocicnos.png"
             alt="Cicnos impresion en telas"
           />
         </a>
       </div>
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center justify-between pr-8"
         aria-label="Global"
       >
         <div className="flex lg:hidden">
@@ -58,7 +58,7 @@ export default function Header() {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        <Popover.Group className="hidden lg:flex lg:gap-x-12">
+        <Popover.Group className="hidden lg:flex lg:gap-x-12 bg-white p-1 pl-8 rounded-lg border border-orange-300 border-solid border-2">
           <a
             href="#"
             className="text-sm font-semibold leading-6 text-gray-900 self-center"

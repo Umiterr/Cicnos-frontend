@@ -1,6 +1,9 @@
 import "./App.css";
 import Header from "./components/Header";
 import LandingPage from "./components/LandingPage";
+import Divition from "./components/Divition";
+import Footer from "./components/Footer";
+import TrendingProducts from "./components/Trending";
 
 function App() {
   return (
@@ -12,6 +15,9 @@ function App() {
         alt="Descripción de la imagen"
         className="BG_logo"
       />
+      <Divition />
+      <TrendingProducts />
+      <Footer />
     </>
   );
 }

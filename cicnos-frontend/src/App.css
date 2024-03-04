@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-
+  max-width: 100%;
+  margin: 0;
+  width: 100%;
   text-align: center;
 }
 
@@ -43,7 +43,7 @@
 
 .flip-card {
   background-color: transparent;
-  width: 300px;
+  width: 342px;
   height: 254px;
   perspective: 1000px;
   font-family: sans-serif;
@@ -114,11 +114,11 @@
 }
 
 .BG_logo {
-  position: absolute;
+  position: fixed;
   z-index: 1;
   opacity: 20%;
   top: 0px;
-  right: 300px;
+  right: 600px;
   width: 1300px;
   height: auto;
   filter: blur(18px);
@@ -132,4 +132,12 @@
   padding-top: 90px;
   line-height: 2;
   font-style: italic;
+}
+
+.subtitle {
+  font-size: 2em;
+  color: #333;
+  text-align: center;
+
+  line-height: 2;
 }

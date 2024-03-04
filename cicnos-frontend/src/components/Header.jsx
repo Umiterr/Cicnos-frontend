@@ -15,37 +15,35 @@ import {
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
 
+import { Link } from "react-router-dom";
+
 const callsToAction = [
   { name: "Watch demo", href: "#", icon: PlayCircleIcon },
   { name: "Contact sales", href: "#", icon: PhoneIcon },
 ];
 const company = [
-  { name: "Quienes somos", href: "#" },
-  { name: "Contacto", href: "#" },
-  { name: "Preguntas frecuentes", href: "#" },
+  { name: "Quienes somos", to: "/quienes-somos" },
+  { name: "Contacto", to: "/contacto" },
+  { name: "Preguntas frecuentes", to: "/preguntas-frecuentes" },
 ];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white flex bg-opacity-0 relative z-20">
-      <div className="flex lg:flex-1- max-w-[300px]">
-        <a href="#" className="max-w-300 -m-1.5 p-1.5">
+    <header className="bg-white flex bg-opacity-0 relative z-30 justify-center">
+      <div className="flex lg:flex-1- max-w-[300px] pl-[30px]">
+        <Link to="" className="max-w-300 -m-1.5 p-1.5">
           <span className="sr-only">Cicnos</span>
           <img
-            className="p-4 "
-            src="../public/logocicnos.png"
+            className="p-4"
+            src="logocicnos.png"
             alt="Cicnos impresion en telas"
           />
-        </a>
+        </Link>
       </div>
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between pr-8"
+        className="mx-12 flex  items-center justify-center items-center"
         aria-label="Global"
       >
         <div className="flex lg:hidden">
@@ -59,44 +57,44 @@ export default function Header() {
           </button>
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12 bg-white p-1 pl-8 rounded-lg border border-orange-300 border-solid border-2">
-          <a
-            href="#"
+          <Link
+            to=""
             className="text-sm font-semibold leading-6 text-gray-900 self-center"
           >
             Inicio
-          </a>
-          <a
-            href="#"
-            className="text-sm font-semibold leading-6 text-gray-900 self-center"
-          >
-            Decoración
-          </a>
-          <a
-            href="#"
-            className="text-sm font-semibold leading-6 text-gray-900 self-center"
-          >
-            Moda
-          </a>
-
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="publicidad"
             className="text-sm font-semibold leading-6 text-gray-900 self-center"
           >
             Publicidad
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="decoracion"
+            className="text-sm font-semibold leading-6 text-gray-900 self-center"
+          >
+            Decoración
+          </Link>
+          <Link
+            to="moda"
+            className="text-sm font-semibold leading-6 text-gray-900 self-center"
+          >
+            Moda
+          </Link>
+
+          <Link
+            to="imprime-tu-diseno"
             className="text-sm font-semibold leading-6 text-gray-900 self-center"
           >
             Imprime tu diseño
-          </a>
+          </Link>
 
-          <a
-            href="#"
+          <Link
+            to="tienda"
             className="text-sm font-semibold leading-6 text-gray-900 self-center"
           >
             Tienda
-          </a>
+          </Link>
 
           <Popover className="relative">
             <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
@@ -118,13 +116,13 @@ export default function Header() {
             >
               <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-56 rounded-xl bg-white p-2 shadow-lg ring-1 ring-gray-900/5">
                 {company.map((item) => (
-                  <a
+                  <Link
+                    to={item.to}
                     key={item.name}
-                    href={item.href}
                     className="block rounded-lg px-3 py-2 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </Popover.Panel>
             </Transition>

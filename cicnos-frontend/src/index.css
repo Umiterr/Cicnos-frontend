@@ -30,18 +30,15 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-
   min-width: 320px;
   min-height: 100vh;
-  background: linear-gradient(to bottom, white, rgb(253, 212, 154));
+  background: linear-gradient(to bottom, transparent, rgb(247, 224, 192));
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
-
 
 button {
   border-radius: 8px;

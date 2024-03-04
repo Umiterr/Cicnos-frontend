@@ -1,13 +1,14 @@
+import { Link } from "react-router-dom";
 const navigation = {
   main: [
-    { name: "Contacto", href: "#" },
-    { name: "Quienes somos", href: "#" },
-    { name: "Preguntas fecuentes", href: "#" },
+    { name: "Contacto", to: "/contacto" },
+    { name: "Quienes somos", to: "/quienes-somos" },
+    { name: "Preguntas fecuentes", to: "/preguntas-frecuentes" },
   ],
   social: [
     {
       name: "Facebook",
-      href: "#",
+      to: "#",
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -20,7 +21,7 @@ const navigation = {
     },
     {
       name: "Instagram",
-      href: "#",
+      to: "#",
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -34,7 +35,7 @@ const navigation = {
 
     {
       name: "YouTube",
-      href: "#",
+      to: "#",
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -50,7 +51,7 @@ const navigation = {
 
 export default function Footer() {
   return (
-    <footer className="bg-0">
+    <footer className="bg-0 z-20 relative">
       <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
         <nav
           className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
@@ -58,25 +59,25 @@ export default function Footer() {
         >
           {navigation.main.map((item) => (
             <div key={item.name} className="pb-6">
-              <a
-                href={item.href}
+              <Link
+                to={item.to}
                 className="text-sm leading-6 text-gray-600 hover:text-gray-900"
               >
                 {item.name}
-              </a>
+              </Link>
             </div>
           ))}
         </nav>
         <div className="mt-10 flex justify-center space-x-10">
           {navigation.social.map((item) => (
-            <a
+            <Link
               key={item.name}
-              href={item.href}
+              to={item.to}
               className="text-gray-400 hover:text-gray-500"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon className="h-6 w-6" aria-hidden="true" />
-            </a>
+            </Link>
           ))}
         </div>
         <p className="mt-10 text-center text-xs leading-5 text-gray-500">

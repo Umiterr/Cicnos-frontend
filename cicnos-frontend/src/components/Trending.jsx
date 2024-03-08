@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const products = [
   {
     id: 1,
@@ -41,15 +43,15 @@ export default function TrendingProducts() {
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="md:flex md:items-center md:justify-between">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            Trending products
+            Productos destacados
           </h2>
-          <a
-            href="#"
+          <Link
+            to="tienda"
             className="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 md:block"
           >
-            Shop the collection
+            Visita la tienda
             <span aria-hidden="true"> &rarr;</span>
-          </a>
+          </Link>
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">

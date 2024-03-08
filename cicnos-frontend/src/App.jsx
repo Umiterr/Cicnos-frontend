@@ -1,6 +1,5 @@
 import "./App.css";
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import LandingPage from "./components/LandingPage";
 import Divition from "./components/Divition";
@@ -20,6 +19,11 @@ import Features from "./components/Features";
 import AdSpecs from "./components/AdSpecs";
 import FashSpecs from "./components/FashSpecs";
 import HeaderShop from "./components/HeaderShop";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Profile from "./components/Profile";
+import api from "../src/utils/api";
+import CurrentUserContext from "./contexts/CurrentUserContext";
 
 import {
   Route,
@@ -29,15 +33,40 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const navigate = useNavigate();
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [user, setUser] = useState(null);
+
+  const Navigate = useNavigate();
   const currentPath = window.location.pathname;
 
   const shouldShowHeader = () => {
-    return currentPath !== "/tienda";
+    return currentPath !== "/tienda" && currentPath !== "/profile";
   };
 
+  const fetchUserData = async () => {
+    try {
+      const userInfo = await api.getUserInfo();
+      setCurrentUser(userInfo);
+      setLoggedIn(true);
+    } catch (error) {
+      console.error("Error fetching current user data:", error);
+      setLoggedIn(false);
+    }
+  };
+
+  useEffect(() => {
+    try {
+      api.getUserInfo().then((userInfo) => {
+        setCurrentUser(userInfo);
+      });
+    } catch (error) {
+      console.error("Error fetching current user data:", error);
+    }
+  }, []);
+
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       {shouldShowHeader() && <Header />}
       {!shouldShowHeader() && <HeaderShop />}
 
@@ -98,7 +127,6 @@ function App() {
           path="/tienda"
           element={
             <>
-              {/* <ShopNav /> */}
               <Shop />
             </>
           }
@@ -127,13 +155,38 @@ function App() {
             </>
           }
         />
-        <Route path="/login" element={""} />
+
+        <Route
+          path="/signup"
+          element={
+            loggedIn ? (
+              <Navigate to="/profile" replace />
+            ) : (
+              <Signup onLogin={fetchUserData} />
+            )
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            loggedIn ? (
+              <Navigate to="/profile" replace />
+            ) : (
+              <Login onLogin={fetchUserData} />
+            )
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={loggedIn ? <Navigate to="/signin" replace /> : <Profile />}
+        />
       </Routes>
 
       <img src="logo.svg" alt="Descripción de la imagen" className="BG_logo" />
 
       <Footer />
-    </>
+    </CurrentUserContext.Provider>
   );
 }
 

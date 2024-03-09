@@ -30,7 +30,8 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Profile() {
+export default function Profile(props) {
+  const { user } = props;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [automaticTimezoneEnabled, setAutomaticTimezoneEnabled] =
     useState(true);
@@ -176,7 +177,7 @@ export default function Profile() {
                     Full name
                   </dt>
                   <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                    <div className="text-gray-900">Tom Cook</div>
+                    <div className="text-gray-900">{user.data.name}</div>
                     <button
                       type="button"
                       className="font-semibold text-indigo-600 hover:text-indigo-500"
@@ -190,7 +191,7 @@ export default function Profile() {
                     Email address
                   </dt>
                   <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                    <div className="text-gray-900">tom.cook@example.com</div>
+                    <div className="text-gray-900">{user.data.email}</div>
                     <button
                       type="button"
                       className="font-semibold text-indigo-600 hover:text-indigo-500"
@@ -201,10 +202,10 @@ export default function Profile() {
                 </div>
                 <div className="pt-6 sm:flex">
                   <dt className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
-                    Title
+                    Descripión
                   </dt>
                   <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                    <div className="text-gray-900">Human Resources Manager</div>
+                    <div className="text-gray-900">{user.data.about}</div>
                     <button
                       type="button"
                       className="font-semibold text-indigo-600 hover:text-indigo-500"

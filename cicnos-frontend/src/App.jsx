@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Header from "./components/Header";
 import LandingPage from "./components/LandingPage";
 import Divition from "./components/Divition";
@@ -35,7 +35,6 @@ import {
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [user, setUser] = useState(null);
 
   const Navigate = useNavigate();
   const currentPath = window.location.pathname;
@@ -47,7 +46,6 @@ function App() {
   const fetchUserData = async () => {
     try {
       const userInfo = await api.getUserInfo();
-      setCurrentUser(userInfo);
       setLoggedIn(true);
     } catch (error) {
       console.error("Error fetching current user data:", error);
@@ -68,7 +66,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       {shouldShowHeader() && <Header />}
-      {!shouldShowHeader() && <HeaderShop />}
+      {!shouldShowHeader() && currentPath !== "/profile" && <HeaderShop />}
 
       <Routes>
         <Route
@@ -179,7 +177,13 @@ function App() {
 
         <Route
           path="/profile"
-          element={loggedIn ? <Navigate to="/signin" replace /> : <Profile />}
+          element={
+            loggedIn ? (
+              <Navigate to="/signin" replace />
+            ) : (
+              <Profile user={currentUser} />
+            )
+          }
         />
       </Routes>
 

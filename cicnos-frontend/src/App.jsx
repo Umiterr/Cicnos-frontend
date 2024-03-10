@@ -52,16 +52,24 @@ function App() {
       setLoggedIn(false);
     }
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userInfo = await api.getUserInfo();
+        setCurrentUser(userInfo);
+        setLoggedIn(true);
+      } catch (error) {
+        console.error("Error fetching current user data:", error);
+        setLoggedIn(false);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array means this effect runs once after the initial render
 
   useEffect(() => {
-    try {
-      api.getUserInfo().then((userInfo) => {
-        setCurrentUser(userInfo);
-      });
-    } catch (error) {
-      console.error("Error fetching current user data:", error);
-    }
-  }, []);
+    console.log(currentUser);
+  }, [currentUser]); // Log the updated currentUser whenever it changes
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -174,14 +182,13 @@ function App() {
             )
           }
         />
-
         <Route
           path="/profile"
           element={
             loggedIn ? (
-              <Navigate to="/signin" replace />
-            ) : (
               <Profile user={currentUser} />
+            ) : (
+              <Navigate to="/signin" />
             )
           }
         />

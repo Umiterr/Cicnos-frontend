@@ -36,10 +36,6 @@ export default function Profile({ user }) {
   const [automaticTimezoneEnabled, setAutomaticTimezoneEnabled] =
     useState(true);
 
-  /* const logOut = () => {
-    localStorage.removeItem("jwt");
-  }; */
-
   return (
     <>
       <header className="absolute inset-x-0 top-0 z-50 flex h-16 border-b border-gray-900/10">
@@ -158,10 +154,10 @@ export default function Profile({ user }) {
                   </Link>
                 </li>
               ))}
-              <Link
+              <a
                 className="text-gray-700 hover:text-red-600 hover:underline hover:bg-gray-50 group flex gap-x-3 rounded-md py-2 pl-2 pr-3 text-sm leading-6 font-semibold"
-                to="/signin"
-                onClick={/* logOut() */ ""}
+                href="/"
+                onClick={() => localStorage.removeItem("jwt")}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -180,7 +176,7 @@ export default function Profile({ user }) {
                   ></path>
                 </svg>
                 Cerrar sesión
-              </Link>
+              </a>
             </ul>
           </nav>
         </aside>

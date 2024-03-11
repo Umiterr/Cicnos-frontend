@@ -53,15 +53,19 @@ function App() {
 
   useEffect(() => {
     // Check if user is logged in
-    if (!loggedIn && currentPath === "/profile") {
-      navigate("/signin");
-    } else if (
-      loggedIn &&
-      (currentPath === "/signin" || currentPath === "/signup")
-    ) {
-      navigate("/profile");
+
+    if (loggedIn) {
+      // If logged in, redirect from signin/signup to profile
+      if (["/signin", "/signup"].includes(currentPath)) {
+        navigate("/profile");
+      }
+    } else {
+      // If not logged in, redirect from profile to signin
+      if (currentPath === "/profile") {
+        navigate("/signin");
+      }
     }
-  }, [loggedIn, currentPath]);
+  }, [loggedIn, currentPath, navigate]);
 
   console.log(loggedIn);
 

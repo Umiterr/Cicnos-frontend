@@ -29,38 +29,19 @@ export default function Login(props) {
       console.log(data);
 
       if (data.token) {
-        await onLogin();
-        navigate("/profile");
-        /*  setEmail("");
-        setPassword(""); */
+        onLogin();
+
+        setEmail("");
+        setPassword("");
+        window.location.reload();
       }
     } catch (error) {
       console.error("Error durante la autenticación:", error.message);
     }
   };
 
-  /*   const tokenCheck = async () => {
-    const jwt = localStorage.getItem("jwt");
-
-    if (jwt) {
-      try {
-        await auth.getContent(jwt).then((res) => {
-          if (res) {
-            onLogin();
-            navigate("/profile");
-            console.log(jwt);
-          } else {
-            return;
-          }
-        });
-      } catch (error) {
-        console.error("Error al obtener contenido:", error);
-      }
-    }
-  }; */
-
   const tokenCheck = async () => {
-    const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem("jwt") || localStorage.getItem("token");
 
     if (jwt) {
       try {
@@ -69,7 +50,6 @@ export default function Login(props) {
         if (res) {
           console.log(res);
           await onLogin(); // Esperar a que onLogin termine antes de continuar
-          /* navigate("/profile"); */
         }
       } catch (error) {
         console.error("Error fetching content:", error);
@@ -78,9 +58,9 @@ export default function Login(props) {
     }
   };
 
-  /*  useEffect(() => {
+  useEffect(() => {
     tokenCheck();
-  }, []); */
+  }, []);
 
   return (
     <>

@@ -1,5 +1,6 @@
 import "./App.css";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
+import { useContext } from "react";
 import Header from "./components/Header";
 import LandingPage from "./components/LandingPage";
 import Divition from "./components/Divition";
@@ -25,18 +26,15 @@ import Profile from "./components/Profile";
 import api from "../src/utils/api";
 import CurrentUserContext from "./contexts/CurrentUserContext";
 
-import {
-  Route,
-  Routes,
-  BrowserRouter as Router,
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [user, setUser] = useState(null);
 
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const currentPath = window.location.pathname;
 
   const shouldShowHeader = () => {
@@ -46,158 +44,134 @@ function App() {
   const fetchUserData = async () => {
     try {
       const userInfo = await api.getUserInfo();
+      setCurrentUser(userInfo);
       setLoggedIn(true);
     } catch (error) {
       console.error("Error fetching current user data:", error);
-      setLoggedIn(false);
     }
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userInfo = await api.getUserInfo();
-        setCurrentUser(userInfo);
-        setLoggedIn(true);
-      } catch (error) {
-        console.error("Error fetching current user data:", error);
-        setLoggedIn(false);
-      }
-    };
-
-    fetchData();
-  }, []); // Empty dependency array means this effect runs once after the initial render
 
   useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]); // Log the updated currentUser whenever it changes
+    // Check if user is logged in
+    if (!loggedIn && currentPath === "/profile") {
+      navigate("/signin");
+    } else if (
+      loggedIn &&
+      (currentPath === "/signin" || currentPath === "/signup")
+    ) {
+      navigate("/profile");
+    }
+  }, [loggedIn, currentPath]);
+
+  console.log(loggedIn);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      {shouldShowHeader() && <Header />}
-      {!shouldShowHeader() && currentPath !== "/profile" && <HeaderShop />}
+    <>
+      <CurrentUserContext.Provider value={currentUser}>
+        {shouldShowHeader() && <Header />}
+        {!shouldShowHeader() && currentPath !== "/profile" && <HeaderShop />}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <LandingPage />
+                <Divition />
+                <Features />
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <LandingPage />
-              <Divition />
-              <Features />
+                <Divition />
+                <TrendingProducts />
+              </>
+            }
+          />
+          <Route
+            path="/decoracion"
+            element={
+              <>
+                <Deco />
+                <Divition />
+                <DecoSpecs />
+              </>
+            }
+          />
+          <Route
+            path="/moda"
+            element={
+              <>
+                <Moda />
+                <Divition />
+                <FashSpecs />
+              </>
+            }
+          />
+          <Route
+            path="/publicidad"
+            element={
+              <>
+                <Publicidad />
+                <Divition />
+                <AdSpecs />
+              </>
+            }
+          />
+          <Route
+            path="/imprime-tu-diseno"
+            element={
+              <>
+                <Imprime />
+              </>
+            }
+          />
+          <Route
+            path="/tienda"
+            element={
+              <>
+                <Shop />
+              </>
+            }
+          />
+          <Route
+            path="/quienes-somos"
+            element={
+              <>
+                <About />
+              </>
+            }
+          />
+          <Route
+            path="/contacto"
+            element={
+              <>
+                <Contact />
+              </>
+            }
+          />
+          <Route
+            path="/preguntas-frecuentes"
+            element={
+              <>
+                <FAQ />
+              </>
+            }
+          />
+          <Route path="/signup" element={<Signup onLogin={fetchUserData} />} />
+          <Route path="/signin" element={<Login onLogin={fetchUserData} />} />
+          <Route path="/profile" element={<Profile user={currentUser} />} />
 
-              <Divition />
-              <TrendingProducts />
-            </>
-          }
-        />
+          <Route
+            element={
+              <img
+                src="logo.svg"
+                alt="Descripción de la imagen"
+                className="BG_logo"
+              />
+            }
+          />
 
-        <Route
-          path="/decoracion"
-          element={
-            <>
-              <Deco />
-              <Divition />
-              <DecoSpecs />
-            </>
-          }
-        />
-        <Route
-          path="/moda"
-          element={
-            <>
-              <Moda />
-              <Divition />
-              <FashSpecs />
-            </>
-          }
-        />
-        <Route
-          path="/publicidad"
-          element={
-            <>
-              <Publicidad />
-              <Divition />
-              <AdSpecs />
-            </>
-          }
-        />
-        <Route
-          path="/imprime-tu-diseno"
-          element={
-            <>
-              <Imprime />
-            </>
-          }
-        />
-        <Route
-          path="/tienda"
-          element={
-            <>
-              <Shop />
-            </>
-          }
-        />
-        <Route
-          path="/quienes-somos"
-          element={
-            <>
-              <About />
-            </>
-          }
-        />
-        <Route
-          path="/contacto"
-          element={
-            <>
-              <Contact />
-            </>
-          }
-        />
-        <Route
-          path="/preguntas-frecuentes"
-          element={
-            <>
-              <FAQ />
-            </>
-          }
-        />
-
-        <Route
-          path="/signup"
-          element={
-            loggedIn ? (
-              <Navigate to="/profile" replace />
-            ) : (
-              <Signup onLogin={fetchUserData} />
-            )
-          }
-        />
-        <Route
-          path="/signin"
-          element={
-            loggedIn ? (
-              <Navigate to="/profile" replace />
-            ) : (
-              <Login onLogin={fetchUserData} />
-            )
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            loggedIn ? (
-              <Profile user={currentUser} />
-            ) : (
-              <Navigate to="/signin" />
-            )
-          }
-        />
-      </Routes>
-
-      <img src="logo.svg" alt="Descripción de la imagen" className="BG_logo" />
-
-      <Footer />
-    </CurrentUserContext.Provider>
+          <Route element={<Footer />} />
+        </Routes>
+      </CurrentUserContext.Provider>
+    </>
   );
 }
 

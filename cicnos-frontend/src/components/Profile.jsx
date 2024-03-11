@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Dialog, Switch } from "@headlessui/react";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 import {
@@ -9,13 +10,14 @@ import {
   UserCircleIcon,
   UsersIcon,
   XMarkIcon,
+  ArrowLeftStartOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Home", href: "#" },
-  { name: "Invoices", href: "#" },
-  { name: "Clients", href: "#" },
-  { name: "Expenses", href: "#" },
+  { name: "Inicio", to: "/" },
+  { name: "Tienda", to: "/tienda" },
+  { name: "Clients", to: "#" },
+  { name: "Expenses", to: "#" },
 ];
 const secondaryNavigation = [
   { name: "General", href: "#", icon: UserCircleIcon, current: true },
@@ -23,20 +25,20 @@ const secondaryNavigation = [
   { name: "Notifications", href: "#", icon: BellIcon, current: false },
   { name: "Plan", href: "#", icon: CubeIcon, current: false },
   { name: "Billing", href: "#", icon: CreditCardIcon, current: false },
-  { name: "Team members", href: "#", icon: UsersIcon, current: false },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Profile(props) {
-  const { user } = props;
+export default function Profile({ user }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [automaticTimezoneEnabled, setAutomaticTimezoneEnabled] =
     useState(true);
 
-  console.log(user);
+  /* const logOut = () => {
+    localStorage.removeItem("jwt");
+  }; */
 
   return (
     <>
@@ -51,17 +53,15 @@ export default function Profile(props) {
               <span className="sr-only">Open main menu</span>
               <Bars3Icon className="h-5 w-5 text-gray-900" aria-hidden="true" />
             </button>
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-              alt="Your Company"
-            />
+            <Link to="/">
+              <img className="h-8 w-auto" src="logo.svg" alt="Cicnos" />{" "}
+            </Link>
           </div>
           <nav className="hidden md:flex md:gap-x-11 md:text-sm md:font-semibold md:leading-6 md:text-gray-700">
             {navigation.map((item, itemIdx) => (
-              <a key={itemIdx} href={item.href}>
+              <Link key={itemIdx} to={item.to}>
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
           <div className="flex flex-1 items-center justify-end gap-x-8">
@@ -125,7 +125,7 @@ export default function Profile(props) {
         </Dialog>
       </header>
 
-      <div className="mx-auto max-w-7xl pt-16 lg:flex lg:gap-x-16 lg:px-8">
+      <div className="mx-auto max-w-7xl pt-16 lg:flex lg:gap-x-16 lg:px-8 relative z-20">
         <h1 className="sr-only">General Settings</h1>
 
         <aside className="flex overflow-x-auto border-b border-gray-900/5 py-4 lg:block lg:w-64 lg:flex-none lg:border-0 lg:py-20">
@@ -136,28 +136,51 @@ export default function Profile(props) {
             >
               {secondaryNavigation.map((item) => (
                 <li key={item.name}>
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.to}
                     className={classNames(
                       item.current
-                        ? "bg-gray-50 text-indigo-600"
-                        : "text-gray-700 hover:text-indigo-600 hover:bg-gray-50",
+                        ? "bg-gray-50 text-orange-400"
+                        : "text-gray-700 hover:text-orange-400 hover:bg-gray-50",
                       "group flex gap-x-3 rounded-md py-2 pl-2 pr-3 text-sm leading-6 font-semibold"
                     )}
                   >
                     <item.icon
                       className={classNames(
                         item.current
-                          ? "text-indigo-600"
-                          : "text-gray-400 group-hover:text-indigo-600",
+                          ? "text-orange-400"
+                          : "text-gray-400 group-hover:text-orange-400",
                         "h-6 w-6 shrink-0"
                       )}
                       aria-hidden="true"
                     />
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
+              <Link
+                className="text-gray-700 hover:text-red-600 hover:underline hover:bg-gray-50 group flex gap-x-3 rounded-md py-2 pl-2 pr-3 text-sm leading-6 font-semibold"
+                to="/signin"
+                onClick={/* logOut() */ ""}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  data-slot="icon"
+                  className="text-red-400 group-hover:text-red-600 h-6 w-6 shrink-0"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
+                  ></path>
+                </svg>
+                Cerrar sesión
+              </Link>
             </ul>
           </nav>
         </aside>
@@ -176,7 +199,7 @@ export default function Profile(props) {
               <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
                 <div className="pt-6 sm:flex">
                   <dt className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
-                    Full name
+                    Nombre
                   </dt>
                   <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
                     <div className="text-gray-900">{user.data.name}</div>
@@ -190,7 +213,7 @@ export default function Profile(props) {
                 </div>
                 <div className="pt-6 sm:flex">
                   <dt className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
-                    Email address
+                    Email
                   </dt>
                   <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
                     <div className="text-gray-900">{user.data.email}</div>
@@ -216,157 +239,6 @@ export default function Profile(props) {
                     </button>
                   </dd>
                 </div>
-              </dl>
-            </div>
-
-            <div>
-              <h2 className="text-base font-semibold leading-7 text-gray-900">
-                Bank accounts
-              </h2>
-              <p className="mt-1 text-sm leading-6 text-gray-500">
-                Connect bank accounts to your account.
-              </p>
-
-              <ul
-                role="list"
-                className="mt-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6"
-              >
-                <li className="flex justify-between gap-x-6 py-6">
-                  <div className="font-medium text-gray-900">
-                    TD Canada Trust
-                  </div>
-                  <button
-                    type="button"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Update
-                  </button>
-                </li>
-                <li className="flex justify-between gap-x-6 py-6">
-                  <div className="font-medium text-gray-900">
-                    Royal Bank of Canada
-                  </div>
-                  <button
-                    type="button"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Update
-                  </button>
-                </li>
-              </ul>
-
-              <div className="flex border-t border-gray-100 pt-6">
-                <button
-                  type="button"
-                  className="text-sm font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                >
-                  <span aria-hidden="true">+</span> Add another bank
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-base font-semibold leading-7 text-gray-900">
-                Integrations
-              </h2>
-              <p className="mt-1 text-sm leading-6 text-gray-500">
-                Connect applications to your account.
-              </p>
-
-              <ul
-                role="list"
-                className="mt-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6"
-              >
-                <li className="flex justify-between gap-x-6 py-6">
-                  <div className="font-medium text-gray-900">QuickBooks</div>
-                  <button
-                    type="button"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Update
-                  </button>
-                </li>
-              </ul>
-
-              <div className="flex border-t border-gray-100 pt-6">
-                <button
-                  type="button"
-                  className="text-sm font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                >
-                  <span aria-hidden="true">+</span> Add another application
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-base font-semibold leading-7 text-gray-900">
-                Language and dates
-              </h2>
-              <p className="mt-1 text-sm leading-6 text-gray-500">
-                Choose what language and date format to use throughout your
-                account.
-              </p>
-
-              <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
-                <div className="pt-6 sm:flex">
-                  <dt className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
-                    Language
-                  </dt>
-                  <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                    <div className="text-gray-900">English</div>
-                    <button
-                      type="button"
-                      className="font-semibold text-indigo-600 hover:text-indigo-500"
-                    >
-                      Update
-                    </button>
-                  </dd>
-                </div>
-                <div className="pt-6 sm:flex">
-                  <dt className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
-                    Date format
-                  </dt>
-                  <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                    <div className="text-gray-900">DD-MM-YYYY</div>
-                    <button
-                      type="button"
-                      className="font-semibold text-indigo-600 hover:text-indigo-500"
-                    >
-                      Update
-                    </button>
-                  </dd>
-                </div>
-                <Switch.Group as="div" className="flex pt-6">
-                  <Switch.Label
-                    as="dt"
-                    className="flex-none pr-6 font-medium text-gray-900 sm:w-64"
-                    passive
-                  >
-                    Automatic timezone
-                  </Switch.Label>
-                  <dd className="flex flex-auto items-center justify-end">
-                    <Switch
-                      checked={automaticTimezoneEnabled}
-                      onChange={setAutomaticTimezoneEnabled}
-                      className={classNames(
-                        automaticTimezoneEnabled
-                          ? "bg-indigo-600"
-                          : "bg-gray-200",
-                        "flex w-8 cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                      )}
-                    >
-                      <span
-                        aria-hidden="true"
-                        className={classNames(
-                          automaticTimezoneEnabled
-                            ? "translate-x-3.5"
-                            : "translate-x-0",
-                          "h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out"
-                        )}
-                      />
-                    </Switch>
-                  </dd>
-                </Switch.Group>
               </dl>
             </div>
           </div>

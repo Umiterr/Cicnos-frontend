@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import * as auth from "../utils/auth";
-import {
-  Route,
-  Routes,
-  BrowserRouter as Router,
-  useNavigate,
-  Link,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function Login({ onLogin }) {
+export default function Login(props) {
+  const { onLogin } = props;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleChangeLogin = (e) => {
+  const handleChangeLogin = async (e) => {
     const { name, value } = e.target;
     if (name === "email") setEmail(value);
     if (name === "password") setPassword(value);
@@ -33,33 +29,59 @@ export default function Login({ onLogin }) {
       console.log(data);
 
       if (data.token) {
-        setEmail("");
-        setContraseña("");
-
+        await onLogin();
         navigate("/profile");
-
-        onLogin();
+        /*  setEmail("");
+        setPassword(""); */
       }
     } catch (error) {
       console.error("Error durante la autenticación:", error.message);
     }
   };
 
-  const tokenCheck = () => {
+  /*   const tokenCheck = async () => {
     const jwt = localStorage.getItem("jwt");
 
     if (jwt) {
-      auth.getContent(jwt).then((res) => {
+      try {
+        await auth.getContent(jwt).then((res) => {
+          if (res) {
+            onLogin();
+            navigate("/profile");
+            console.log(jwt);
+          } else {
+            return;
+          }
+        });
+      } catch (error) {
+        console.error("Error al obtener contenido:", error);
+      }
+    }
+  }; */
+
+  const tokenCheck = async () => {
+    const jwt = localStorage.getItem("jwt");
+
+    if (jwt) {
+      try {
+        const res = await auth.getContent(jwt);
+
         if (res) {
           console.log(res);
-          onLogin();
-          navigate("/profile");
+          await onLogin(); // Esperar a que onLogin termine antes de continuar
+          /* navigate("/profile"); */
         }
-      });
+      } catch (error) {
+        console.error("Error fetching content:", error);
+        // Manejar el error de alguna manera
+      }
     }
   };
 
-  tokenCheck();
+  /*  useEffect(() => {
+    tokenCheck();
+  }, []); */
+
   return (
     <>
       <div className="flex  flex-1 flex-col justify-center px-6 py-12 lg:px-8 relative z-20">

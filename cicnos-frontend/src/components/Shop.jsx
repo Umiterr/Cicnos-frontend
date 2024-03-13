@@ -2,7 +2,7 @@ const products = [
   {
     id: 1,
     name: "Earthen Bottle",
-    href: "#",
+    href: "/product-overview/Earthen-Bottle",
     price: "$48",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",

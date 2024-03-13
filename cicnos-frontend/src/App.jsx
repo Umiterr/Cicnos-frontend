@@ -23,6 +23,10 @@ import HeaderShop from "./components/HeaderShop";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Profile from "./components/Profile";
+import Overview from "./components/Overview";
+import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
+import Summary from "./components/Summary";
 import api from "../src/utils/api";
 import CurrentUserContext from "./contexts/CurrentUserContext";
 
@@ -38,7 +42,12 @@ function App() {
   const currentPath = window.location.pathname;
 
   const shouldShowHeader = () => {
-    return currentPath !== "/tienda" && currentPath !== "/profile";
+    return (
+      currentPath !== "/tienda" &&
+      currentPath !== "/profile" &&
+      currentPath !== "/product-overview" &&
+      currentPath !== "/cart"
+    );
   };
 
   const fetchUserData = async () => {
@@ -55,12 +64,10 @@ function App() {
     // Check if user is logged in
 
     if (loggedIn) {
-      // If logged in, redirect from signin/signup to profile
       if (["/signin", "/signup"].includes(currentPath)) {
         navigate("/profile");
       }
     } else {
-      // If not logged in, redirect from profile to signin
       if (currentPath === "/profile") {
         navigate("/signin");
       }
@@ -172,8 +179,12 @@ function App() {
             }
           />
 
-          <Route element={<Footer />} />
+          <Route path="/product-overview" element={<Overview />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/Summary" element={<Summary />} />
         </Routes>
+        {<Footer />}
       </CurrentUserContext.Provider>
     </>
   );

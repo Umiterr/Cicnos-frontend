@@ -7,6 +7,7 @@
     // ...
     plugins: [
       // ...
+      require('@tailwindcss/forms'),
       require('@tailwindcss/aspect-ratio'),
     ],
   }
@@ -18,8 +19,14 @@ import {
   Bars3Icon,
   MagnifyingGlassIcon,
   ShoppingBagIcon,
-  XMarkIcon,
+  XMarkIcon as XMarkIconOutline,
 } from "@heroicons/react/24/outline";
+import {
+  CheckIcon,
+  ClockIcon,
+  QuestionMarkCircleIcon,
+  XMarkIcon as XMarkIconMini,
+} from "@heroicons/react/20/solid";
 
 const navigation = {
   categories: [
@@ -150,16 +157,93 @@ const navigation = {
     { name: "Stores", href: "#" },
   ],
 };
+const products = [
+  {
+    id: 1,
+    name: "Basic Tee",
+    href: "#",
+    price: "$32.00",
+    color: "Sienna",
+    inStock: true,
+    size: "Large",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-01.jpg",
+    imageAlt: "Front of men's Basic Tee in sienna.",
+  },
+  {
+    id: 2,
+    name: "Basic Tee",
+    href: "#",
+    price: "$32.00",
+    color: "Black",
+    inStock: false,
+    leadTime: "3–4 weeks",
+    size: "Large",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-02.jpg",
+    imageAlt: "Front of men's Basic Tee in black.",
+  },
+  {
+    id: 3,
+    name: "Nomad Tumbler",
+    href: "#",
+    price: "$35.00",
+    color: "White",
+    inStock: true,
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-product-03.jpg",
+    imageAlt: "Insulated bottle with white base and black snap lid.",
+  },
+];
+const relatedProducts = [
+  {
+    id: 1,
+    name: "Billfold Wallet",
+    href: "#",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-01-related-product-01.jpg",
+    imageAlt: "Front of Billfold Wallet in natural leather.",
+    price: "$118",
+    color: "Natural",
+  },
+  // More products...
+];
+const footerNavigation = {
+  products: [
+    { name: "Bags", href: "#" },
+    { name: "Tees", href: "#" },
+    { name: "Objects", href: "#" },
+    { name: "Home Goods", href: "#" },
+    { name: "Accessories", href: "#" },
+  ],
+  company: [
+    { name: "Who we are", href: "#" },
+    { name: "Sustainability", href: "#" },
+    { name: "Press", href: "#" },
+    { name: "Careers", href: "#" },
+    { name: "Terms & Conditions", href: "#" },
+    { name: "Privacy", href: "#" },
+  ],
+  customerService: [
+    { name: "Contact", href: "#" },
+    { name: "Shipping", href: "#" },
+    { name: "Returns", href: "#" },
+    { name: "Warranty", href: "#" },
+    { name: "Secure Payments", href: "#" },
+    { name: "FAQ", href: "#" },
+    { name: "Find a store", href: "#" },
+  ],
+};
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ShopNav() {
+export default function Cart() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="bg-white">
+    <div className="bg-opacity-0">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -194,7 +278,7 @@ export default function ShopNav() {
                   >
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Close menu</span>
-                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                    <XMarkIconOutline className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
 
@@ -208,7 +292,7 @@ export default function ShopNav() {
                           className={({ selected }) =>
                             classNames(
                               selected
-                                ? "border-orange-400 text-orange-400"
+                                ? "border-indigo-600 text-indigo-600"
                                 : "border-transparent text-gray-900",
                               "flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium"
                             )
@@ -336,224 +420,231 @@ export default function ShopNav() {
         </Dialog>
       </Transition.Root>
 
-      <header className="relative bg-white">
-        <p className="flex h-10 items-center justify-center bg-orange-400 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-          Get free delivery on orders over $100
-        </p>
+      <main className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Carrito
+        </h1>
 
-        <nav
-          aria-label="Top"
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
-        >
-          <div className="border-b border-gray-200">
-            <div className="flex h-16 items-center">
-              <button
-                type="button"
-                className="relative rounded-md bg-white p-2 text-gray-400 lg:hidden"
-                onClick={() => setOpen(true)}
-              >
-                <span className="absolute -inset-0.5" />
-                <span className="sr-only">Open menu</span>
-                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-              </button>
+        <form className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+          <section aria-labelledby="cart-heading" className="lg:col-span-7">
+            <h2 id="cart-heading" className="sr-only">
+              Items in your shopping cart
+            </h2>
 
-              {/* Logo */}
-              <div className="ml-4 flex lg:ml-0">
-                <a href="#">
-                  <span className="sr-only">Your Company</span>
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt=""
-                  />
-                </a>
-              </div>
-
-              {/* Flyout menus */}
-              <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
-                <div className="flex h-full space-x-8">
-                  {navigation.categories.map((category) => (
-                    <Popover key={category.name} className="flex">
-                      {({ open }) => (
-                        <>
-                          <div className="relative flex">
-                            <Popover.Button
-                              className={classNames(
-                                open
-                                  ? "border-orange-400 text-orange-400"
-                                  : "border-transparent text-gray-700 hover:text-gray-800",
-                                "relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out"
-                              )}
-                            >
-                              {category.name}
-                            </Popover.Button>
-                          </div>
-
-                          <Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-200"
-                            enterFrom="opacity-0"
-                            enterTo="opacity-100"
-                            leave="transition ease-in duration-150"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
-                          >
-                            <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
-                              {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
-                              <div
-                                className="absolute inset-0 top-1/2 bg-white shadow"
-                                aria-hidden="true"
-                              />
-
-                              <div className="relative bg-white">
-                                <div className="mx-auto max-w-7xl px-8">
-                                  <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-16">
-                                    <div className="col-start-2 grid grid-cols-2 gap-x-8">
-                                      {category.featured.map((item) => (
-                                        <div
-                                          key={item.name}
-                                          className="group relative text-base sm:text-sm"
-                                        >
-                                          <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                            <img
-                                              src={item.imageSrc}
-                                              alt={item.imageAlt}
-                                              className="object-cover object-center"
-                                            />
-                                          </div>
-                                          <a
-                                            href={item.href}
-                                            className="mt-6 block font-medium text-gray-900"
-                                          >
-                                            <span
-                                              className="absolute inset-0 z-10"
-                                              aria-hidden="true"
-                                            />
-                                            {item.name}
-                                          </a>
-                                          <p
-                                            aria-hidden="true"
-                                            className="mt-1"
-                                          >
-                                            Shop now
-                                          </p>
-                                        </div>
-                                      ))}
-                                    </div>
-                                    <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
-                                      {category.sections.map((section) => (
-                                        <div key={section.name}>
-                                          <p
-                                            id={`${section.name}-heading`}
-                                            className="font-medium text-gray-900"
-                                          >
-                                            {section.name}
-                                          </p>
-                                          <ul
-                                            role="list"
-                                            aria-labelledby={`${section.name}-heading`}
-                                            className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
-                                          >
-                                            {section.items.map((item) => (
-                                              <li
-                                                key={item.name}
-                                                className="flex"
-                                              >
-                                                <a
-                                                  href={item.href}
-                                                  className="hover:text-gray-800"
-                                                >
-                                                  {item.name}
-                                                </a>
-                                              </li>
-                                            ))}
-                                          </ul>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </Popover.Panel>
-                          </Transition>
-                        </>
-                      )}
-                    </Popover>
-                  ))}
-
-                  {navigation.pages.map((page) => (
-                    <a
-                      key={page.name}
-                      href={page.href}
-                      className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-                    >
-                      {page.name}
-                    </a>
-                  ))}
-                </div>
-              </Popover.Group>
-
-              <div className="ml-auto flex items-center">
-                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Sign in
-                  </a>
-                  <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Create account
-                  </a>
-                </div>
-
-                <div className="hidden lg:ml-8 lg:flex">
-                  <a
-                    href="#"
-                    className="flex items-center text-gray-700 hover:text-gray-800"
-                  >
+            <ul
+              role="list"
+              className="divide-y divide-gray-200 border-b border-t border-gray-200"
+            >
+              {products.map((product, productIdx) => (
+                <li key={product.id} className="flex py-6 sm:py-10">
+                  <div className="flex-shrink-0">
                     <img
-                      src="https://tailwindui.com/img/flags/flag-canada.svg"
-                      alt=""
-                      className="block h-auto w-5 flex-shrink-0"
+                      src={product.imageSrc}
+                      alt={product.imageAlt}
+                      className="h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48"
                     />
-                    <span className="ml-3 block text-sm font-medium">CAD</span>
-                    <span className="sr-only">, change currency</span>
-                  </a>
-                </div>
+                  </div>
 
-                {/* Search */}
-                <div className="flex lg:ml-6">
-                  <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
-                    <MagnifyingGlassIcon
-                      className="h-6 w-6"
-                      aria-hidden="true"
-                    />
-                  </a>
-                </div>
+                  <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
+                    <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+                      <div>
+                        <div className="flex justify-between">
+                          <h3 className="text-sm">
+                            <a
+                              href={product.href}
+                              className="font-medium text-gray-700 hover:text-gray-800"
+                            >
+                              {product.name}
+                            </a>
+                          </h3>
+                        </div>
+                        <div className="mt-1 flex text-sm">
+                          <p className="text-gray-500">{product.color}</p>
+                          {product.size ? (
+                            <p className="ml-4 border-l border-gray-200 pl-4 text-gray-500">
+                              {product.size}
+                            </p>
+                          ) : null}
+                        </div>
+                        <p className="mt-1 text-sm font-medium text-gray-900">
+                          {product.price}
+                        </p>
+                      </div>
 
-                {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 flex items-center p-2">
-                    <ShoppingBagIcon
-                      className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                      aria-hidden="true"
-                    />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
-                      0
+                      <div className="mt-4 sm:mt-0 sm:pr-9">
+                        <label
+                          htmlFor={`quantity-${productIdx}`}
+                          className="sr-only"
+                        >
+                          Quantity, {product.name}
+                        </label>
+                        <select
+                          id={`quantity-${productIdx}`}
+                          name={`quantity-${productIdx}`}
+                          className="max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+                        >
+                          <option value={1}>1</option>
+                          <option value={2}>2</option>
+                          <option value={3}>3</option>
+                          <option value={4}>4</option>
+                          <option value={5}>5</option>
+                          <option value={6}>6</option>
+                          <option value={7}>7</option>
+                          <option value={8}>8</option>
+                        </select>
+
+                        <div className="absolute right-0 top-0">
+                          <button
+                            type="button"
+                            className="-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500"
+                          >
+                            <span className="sr-only">Remove</span>
+                            <XMarkIconMini
+                              className="h-5 w-5"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <p className="mt-4 flex space-x-2 text-sm text-gray-700">
+                      {product.inStock ? (
+                        <CheckIcon
+                          className="h-5 w-5 flex-shrink-0 text-green-500"
+                          aria-hidden="true"
+                        />
+                      ) : (
+                        <ClockIcon
+                          className="h-5 w-5 flex-shrink-0 text-gray-300"
+                          aria-hidden="true"
+                        />
+                      )}
+
+                      <span>
+                        {product.inStock
+                          ? "In stock"
+                          : `Ships in ${product.leadTime}`}
+                      </span>
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Order summary */}
+          <section
+            aria-labelledby="summary-heading"
+            className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8"
+          >
+            <h2
+              id="summary-heading"
+              className="text-lg font-medium text-gray-900"
+            >
+              Resumen del pedido
+            </h2>
+
+            <dl className="mt-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <dt className="text-sm text-gray-600">Subtotal</dt>
+                <dd className="text-sm font-medium text-gray-900">$99.00</dd>
+              </div>
+              <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+                <dt className="flex items-center text-sm text-gray-600">
+                  <span>Precio estimado de envío</span>
+                  <a
+                    href="#"
+                    className="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500"
+                  >
+                    <span className="sr-only">
+                      Learn more about how shipping is calculated
                     </span>
-                    <span className="sr-only">items in cart, view bag</span>
+                    <QuestionMarkCircleIcon
+                      className="h-5 w-5"
+                      aria-hidden="true"
+                    />
                   </a>
+                </dt>
+                <dd className="text-sm font-medium text-gray-900">$5.00</dd>
+              </div>
+              <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+                <dt className="flex text-sm text-gray-600">
+                  <span>IVA</span>
+                  <a
+                    href="#"
+                    className="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500"
+                  >
+                    <span className="sr-only">
+                      Learn more about how tax is calculated
+                    </span>
+                    <QuestionMarkCircleIcon
+                      className="h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  </a>
+                </dt>
+                <dd className="text-sm font-medium text-gray-900">$8.32</dd>
+              </div>
+              <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+                <dt className="text-base font-medium text-gray-900">
+                  Order total
+                </dt>
+                <dd className="text-base font-medium text-gray-900">$112.32</dd>
+              </div>
+            </dl>
+
+            <div className="mt-6">
+              <button
+                type="submit"
+                className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+              >
+                Pasar a caja
+              </button>
+            </div>
+          </section>
+        </form>
+
+        {/* Related products */}
+        <section aria-labelledby="related-heading" className="mt-24">
+          <h2
+            id="related-heading"
+            className="text-lg font-medium text-gray-900"
+          >
+            ¡Podría gustarte esto tambien! &hellip;
+          </h2>
+
+          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+            {relatedProducts.map((relatedProduct) => (
+              <div key={relatedProduct.id} className="group relative">
+                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 lg:h-80">
+                  <img
+                    src={relatedProduct.imageSrc}
+                    alt={relatedProduct.imageAlt}
+                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                  />
+                </div>
+                <div className="mt-4 flex justify-between">
+                  <div>
+                    <h3 className="text-sm text-gray-700">
+                      <a href={relatedProduct.href}>
+                        <span aria-hidden="true" className="absolute inset-0" />
+                        {relatedProduct.name}
+                      </a>
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500">
+                      {relatedProduct.color}
+                    </p>
+                  </div>
+                  <p className="text-sm font-medium text-gray-900">
+                    {relatedProduct.price}
+                  </p>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        </nav>
-      </header>
+        </section>
+      </main>
     </div>
   );
 }

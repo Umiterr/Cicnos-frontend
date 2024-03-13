@@ -12,30 +12,34 @@ export const register = async (contraseña, email) => {
         email: email,
       }),
     });
-
     if (!response.ok) {
-      // Maneja errores aquí, si es necesario
-      // Puedes lanzar un error, mostrar un mensaje al usuario, etc.
-      throw new Error("Error al registrar el usuario");
+      if (response.status === 400) {
+        throw new Error(
+          "Error: Uno de los campos se rellenó de forma incorrecta"
+        );
+      } else if (response.status === 401) {
+        throw new Error(
+          "Error: No se ha encontrado al usuario con el correo electrónico especificado"
+        );
+      } else {
+        throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      }
     }
 
-    const responseData = await response.json();
+    const data = await response.json();
 
-    // Verifica si la respuesta incluye un token
-    if (responseData.token) {
-      // Guarda el token en el localStorage
-      localStorage.setItem("token", responseData.token);
+    if (data && data.token) {
+      localStorage.setItem("jwt", data.token);
+      console.log(data.token);
+      return data;
+    } else {
+      throw new Error(
+        "Error: La respuesta de la API no contiene el token esperado"
+      );
     }
-
-    // Puedes realizar otras operaciones aquí según tus necesidades
-    // Por ejemplo, redireccionar a la página de inicio después del registro
-    // window.location.href = '/inicio';
-
-    return responseData; // Puedes devolver la respuesta si es necesario
   } catch (error) {
-    console.error("Error al registrar el usuario:", error);
-    // Puedes manejar el error aquí, mostrar un mensaje al usuario, etc.
-    throw error;
+    console.error("Error:", error.message);
+    return { error: true, message: error.message };
   }
 };
 

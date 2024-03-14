@@ -32,11 +32,14 @@ import CurrentUserContext from "./contexts/CurrentUserContext";
 
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [user, setUser] = useState(null);
+
+  const { productId } = useParams();
 
   const navigate = useNavigate();
   const currentPath = window.location.pathname;
@@ -133,14 +136,14 @@ function App() {
               </>
             }
           />
-          <Route
+          {/*  <Route
             path="/tienda"
             element={
               <>
                 <Shop />
               </>
             }
-          />
+          /> */}
           <Route
             path="/quienes-somos"
             element={
@@ -183,6 +186,9 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/Summary" element={<Summary />} />
+
+          <Route exact path="/tienda" element={<Shop />} />
+          <Route path="/product-overview/:productId" element={<Overview />} />
         </Routes>
         {<Footer />}
       </CurrentUserContext.Provider>

@@ -29,6 +29,7 @@ import Checkout from "./components/Checkout";
 import Summary from "./components/Summary";
 import api from "../src/utils/api";
 import CurrentUserContext from "./contexts/CurrentUserContext";
+import CurrentCartContext from "./contexts/CurrentCartContext";
 
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -76,6 +77,23 @@ function App() {
       }
     }
   }, [loggedIn, currentPath, navigate]);
+
+  // Get Products
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const productsData = await api.getAllProducts();
+        setProducts(productsData);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    }
+
+    fetchProducts();
+  }, []);
 
   console.log(loggedIn);
 
@@ -187,8 +205,11 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/Summary" element={<Summary />} />
 
-          <Route exact path="/tienda" element={<Shop />} />
-          <Route path="/product-overview/:productId" element={<Overview />} />
+          <Route exact path="/tienda" element={<Shop products={products} />} />
+          <Route
+            path="/product-overview/:productId"
+            element={<Overview products={products} />}
+          />
         </Routes>
         {<Footer />}
       </CurrentUserContext.Provider>

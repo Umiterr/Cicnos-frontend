@@ -1,23 +1,8 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/typography'),
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 import { useState } from "react";
 import { Disclosure, RadioGroup, Tab } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { HeartIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { products } from "../data/products";
+
 import { useParams } from "react-router-dom";
 
 function classNames(...classes) {
@@ -25,7 +10,7 @@ function classNames(...classes) {
 }
 
 export default function Overview(props) {
-  console.log(props);
+  const { products } = props;
 
   const { productId } = useParams();
 

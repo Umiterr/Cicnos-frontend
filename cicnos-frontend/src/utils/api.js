@@ -44,6 +44,14 @@ class Api {
   setUserImage(imageURL) {
     return this._fetchApi("PATCH", "users/me/avatar", { avatar: imageURL });
   }
+
+  addCart() {
+    return this._fetchApi("POST", "carts/");
+  }
+
+  getAllProducts() {
+    return this._fetchApi("GET", "products/all");
+  }
 }
 
 const api = new Api({

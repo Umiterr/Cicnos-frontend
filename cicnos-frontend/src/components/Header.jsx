@@ -37,7 +37,7 @@ export default function Header() {
           <span className="sr-only">Cicnos</span>
           <img
             className="p-4"
-            src="logocicnos.png"
+            src="/logocicnos.png"
             alt="Cicnos impresion en telas"
           />
         </Link>

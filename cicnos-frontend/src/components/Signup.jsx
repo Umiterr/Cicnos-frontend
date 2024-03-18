@@ -7,6 +7,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import * as auth from "../utils/auth";
+import api from "../utils/api";
 
 export default function Signup({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -49,14 +50,13 @@ export default function Signup({ onLogin }) {
     if (jwt) {
       try {
         const res = await auth.getContent(jwt);
-
+        await api.addCart(jwt);
         if (res) {
           console.log(res);
-          await onLogin(); // Esperar a que onLogin termine antes de continuar
+          await onLogin();
         }
       } catch (error) {
         console.error("Error fetching content:", error);
-        // Manejar el error de alguna manera
       }
     }
   };

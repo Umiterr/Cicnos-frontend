@@ -14,23 +14,28 @@
 */
 const features = [
   {
-    name: "Sleek design",
-    description:
-      "The machined kettle has a smooth black finish and contemporary shape that stands apart from most plastic appliances.",
+    name: "Impresión de imagen",
+    description: "Imprimimos el diseño en tu tela preferida",
   },
   {
-    name: "Comfort handle",
-    description: "Shaped for steady pours and insulated to prevent burns.",
+    name: "Impresión por patrón",
+    description: "Tu diseño en tu patrón",
   },
   {
-    name: "One-button control",
-    description:
-      "The one button control has a digital readout for setting temperature and turning the kettle on and off.",
+    name: "Mascadas",
+    description: "30 cm x 1 m 50 cm x 50 cm y 80 cm x 80 cm",
   },
   {
-    name: "Long spout",
-    description:
-      "Designed specifically for controlled pour-overs that don't slash or sputter.",
+    name: "Playeras",
+    description: "Impresión de 45 cm x 30 cm",
+  },
+  {
+    name: "Mandiles",
+    description: "Impresion de logotipo o full print",
+  },
+  {
+    name: "Detalles para camisas",
+    description: "Impresion para bolsa, cuello, puños y/o area de botones",
   },
 ];
 
@@ -41,9 +46,9 @@ export default function FashSpecs() {
         <div className="grid grid-cols-1 items-center gap-x-8 gap-y-16 lg:grid-cols-2">
           <div>
             <div className="border-b border-gray-200 pb-10">
-              <h2 className="font-medium text-gray-500">Machined Kettle</h2>
+              <h2 className="font-medium text-gray-500"></h2>
               <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                Elegant simplicity
+                Diseña tu moda
               </p>
             </div>
 

@@ -24,14 +24,14 @@ export default function Shop(props) {
                 key={product.id}
               >
                 <img
-                  src={product.images[0].src}
+                  src={product.images[0].name}
                   alt={product.images[0].alt}
                   className="h-full w-full object-cover object-center group-hover:opacity-75"
                 />
               </div>
               <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
               <p className="mt-1 text-lg font-medium text-gray-900">
-                {product.price}
+                ${product.price}
               </p>
             </Link>
           ))}

@@ -9,12 +9,11 @@ export default function Publicidad() {
             <div className="mx-auto max-w-2xl">
               <div className="max-w-lg">
                 <h1 className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                  Supercharge your web applications
+                  Tu imágen destacará como nunca
                 </h1>
-                <p className="mt-6 text-lg leading-8 text-gray-600">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure
-                  qui lorem cupidatat commodo. Elit sunt amet fugiat veniam
-                  occaecat fugiat aliqua.
+                <p className="mt-6 text-2xl leading-8 text-gray-600">
+                  Contamos con una amplia gama de recursos publicitarios en tela
+                  para tus expos y promociones.
                 </p>
               </div>
             </div>

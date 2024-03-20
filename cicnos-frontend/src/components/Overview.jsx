@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Disclosure, RadioGroup, Tab } from "@headlessui/react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { HeartIcon, MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
+import api from "../utils/api";
 
 import { useParams } from "react-router-dom";
 
@@ -25,6 +26,31 @@ export default function Overview(props) {
 
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
 
+  const data = {
+    date: new Date().toISOString(),
+    products: [
+      {
+        productId: productId,
+        name: product.name,
+        quantity: product.quantity,
+        price: product.price,
+      },
+    ],
+  };
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    console.log(data);
+    api
+      .addProductsToCart(data)
+      .then((response) => {
+        console.log("Producto agregado al carrito:", response);
+      })
+      .catch((error) => {
+        console.error("Error al agregar producto al carrito:", error);
+      });
+  }
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -44,8 +70,8 @@ export default function Overview(props) {
                         <span className="sr-only">{image.name}</span>
                         <span className="absolute inset-0 overflow-hidden rounded-md">
                           <img
-                            src={image.src}
-                            alt=""
+                            src={product.images[0].name}
+                            alt={product.images[0].alt}
                             className="h-full w-full object-cover object-center"
                           />
                         </span>
@@ -67,8 +93,8 @@ export default function Overview(props) {
               {product.images.map((image) => (
                 <Tab.Panel key={image.id}>
                   <img
-                    src={image.src}
-                    alt={image.alt}
+                    src={product.images[0].name}
+                    alt={product.images[0].alt}
                     className="h-full w-full object-cover object-center sm:rounded-lg"
                   />
                 </Tab.Panel>
@@ -85,7 +111,7 @@ export default function Overview(props) {
             <div className="mt-3">
               <h2 className="sr-only">Product information</h2>
               <p className="text-3xl tracking-tight text-gray-900">
-                {product.price}
+                ${product.price}
               </p>
             </div>
 
@@ -98,7 +124,7 @@ export default function Overview(props) {
               />
             </div>
 
-            <form className="mt-6">
+            <form className="mt-6" onSubmit={(event) => handleSubmit(event)}>
               {/* Colors */}
               <div>
                 <h3 className="text-sm text-gray-600">Color</h3>

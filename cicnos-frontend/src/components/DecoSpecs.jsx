@@ -1,17 +1,29 @@
 const features = [
-  { name: "Origin", description: "Designed by Good Goods, Inc." },
   {
-    name: "Material",
+    name: "Cuadros",
     description:
-      "Solid walnut base with rare earth magnets and powder coated steel card cover",
+      "15 cm x 15 cm 40 cm x 30 cm 50 cm x 50 cm 80 cm x 70 cm 1 m x 1 m 1.50 m c 1 m y 2 m x 1 m",
   },
-  { name: "Dimensions", description: '6.25" x 3.55" x 1.15"' },
-  { name: "Finish", description: "Hand sanded and finished with natural oil" },
-  { name: "Includes", description: "Wood card tray and 3 refill packs" },
   {
-    name: "Considerations",
-    description:
-      "Made from natural materials. Grain and color vary with each item.",
+    name: "Almohadas",
+    description: "30 cm x 20 cm 40 cm x 30 cm 50ncm x 50 cm y fundas para cama",
+  },
+  { name: "Mantas decorativas", description: "Tamaño estandar, 1.40 m x 1 m" },
+  {
+    name: "Sobrecamas",
+    description: "para camas single, queen y king size Caminos de cama",
+  },
+  {
+    name: "Tapiz para muebles",
+    description: "Bancos, sillones, sillas de oficina y mucho más",
+  },
+  {
+    name: "Manteles y cortinas",
+    description: "Divertidos manteles oara fiestas y originales cortinas",
+  },
+  {
+    name: "Bodas",
+    description: "Camino de mesa, servilleta, cubresilla, recuerdos de boda",
   },
 ];
 
@@ -21,14 +33,9 @@ export default function DecoSpecs() {
       <div className="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
         <div>
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Technical Specifications
+            Decoración
           </h2>
-          <p className="mt-4 text-gray-500">
-            The walnut wood card tray is precision milled to perfectly fit a
-            stack of Focus cards. The powder coated steel divider separates
-            active cards from new ones, or can be used to archive important task
-            lists.
-          </p>
+          <p className="mt-4 text-gray-500"></p>
 
           <dl className="mt-16 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:gap-x-8">
             {features.map((feature) => (

@@ -52,6 +52,14 @@ class Api {
   getAllProducts() {
     return this._fetchApi("GET", "products/all");
   }
+
+  addProductsToCart(data) {
+    return this._fetchApi("POST", "carts/addProducts", data);
+  }
+
+  getCartProducts() {
+    return this._fetchApi("GET", "carts/userCart");
+  }
 }
 
 const api = new Api({

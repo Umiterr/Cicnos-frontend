@@ -14,18 +14,18 @@
 */
 const features = [
   {
-    name: "Minimal and thoughtful",
+    name: ".",
     description:
-      'Our laptop sleeve is compact and precisely fits 13" devices. The zipper allows you to access the interior with ease, and the front pouch provides a convenient place for your charger cable.',
+      "Tenemos 10 años de experiencia en el área de sublimación y 30 años en diseño gráfico, por lo cual la calidad de  nuestras impresiones es insuperable.",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-feature-07-detail-01.jpg",
     imageAlt:
       "White canvas laptop sleeve with gray felt interior, silver zipper, and tan leather zipper pull.",
   },
   {
-    name: "Refined details",
+    name: "",
     description:
-      "We design every detail with the best materials and finishes. This laptop sleeve features durable canvas with double-stitched construction, a felt interior, and a high quality zipper that hold up to daily use.",
+      "Nuestra tecnología japonesa hace que la calidad de nuestros impresos sean de alta definición y resistentes al lavado.",
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-feature-07-detail-02.jpg",
     imageAlt: "Detail of zipper pull with tan leather and silver rivet.",
@@ -41,13 +41,11 @@ export default function Features() {
     <div className="z-20 relative justify-center flex ">
       <div className="max-w-2xl px-4 py-20 sm:px-6 sm:py-20 lg:max-w-7xl lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Protect your device
-          </h2>
-          <p className="mt-4 text-gray-500">
-            As a digital creative, your laptop or tablet is at the center of
-            your work. Keep your device safe with a fabric sleeve that matches
-            in quality and looks.
+          <p className="mt-4 text-gray-600 text-3xl">
+            Nuestro objetivo es ayudarte a plasmar en tela tus propias ideas
+            para lograr personalizar un ambiente cómodo y confortable, ya sea en
+            casa, negocio u oficina, podrás imprimir la imagen que tu desees en
+            banderas, almohadas, cuadros, manteles, tapicería para muebles etc.
           </p>
         </div>
 
@@ -58,6 +56,7 @@ export default function Features() {
               className="flex flex-col-reverse lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-8"
             >
               <div
+                details
                 className={classNames(
                   featureIdx % 2 === 0
                     ? "lg:col-start-1"
@@ -68,7 +67,7 @@ export default function Features() {
                 <h3 className="text-lg font-medium text-gray-900">
                   {feature.name}
                 </h3>
-                <p className="mt-2 text-sm text-gray-500">
+                <p className="mt-2 text-2xl text-gray-500">
                   {feature.description}
                 </p>
               </div>

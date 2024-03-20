@@ -5,12 +5,12 @@ export default function Imprime() {
         <div className="px-6 pb-24 pt-10 sm:pb-32 lg:col-span-7 lg:px-0 lg:pb-56 lg:pt-48 xl:col-span-6">
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h1 className="mt-24 text-4xl font-bold tracking-tight text-gray-900 sm:mt-10 sm:text-6xl">
-              Data to enrich your online business
+              Realiza tu pedido en línea
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-              lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-              fugiat aliqua.
+              Te recomendamos que si es la primera vez que imprimes en tela, nos
+              visites para que veas físicamente nuestro catálogo de telas para
+              que las puedas sentir y apreciar en la impresión.
             </p>
           </div>
         </div>

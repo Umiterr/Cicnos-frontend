@@ -30,10 +30,18 @@ export default function Overview(props) {
     date: new Date().toISOString(),
     products: [
       {
-        productId: productId,
         name: product.name,
         quantity: product.quantity,
         price: product.price,
+        images: product.images,
+        colors: product.colors,
+        details: {
+          category: product.category,
+          images: product.images,
+
+          description: product.description,
+          details: product.details,
+        },
       },
     ],
   };

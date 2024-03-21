@@ -402,8 +402,8 @@ export default function Cart() {
                 <li key={product.id} className="flex py-6 sm:py-10">
                   <div className="flex-shrink-0">
                     <img
-                      src={product.imageSrc}
-                      alt={product.imageAlt}
+                      src={product.images[0].name}
+                      alt={product.images[0].alt}
                       className="h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48"
                     />
                   </div>
@@ -416,9 +416,8 @@ export default function Cart() {
                             <a
                               href={product.href}
                               className="font-medium text-gray-700 hover:text-gray-800"
-                            >
-                              {product.name}
-                            </a>
+                            ></a>
+                            {product.name}
                           </h3>
                         </div>
                         <div className="mt-1 flex text-sm">

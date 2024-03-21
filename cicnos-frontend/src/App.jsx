@@ -29,7 +29,6 @@ import Checkout from "./components/Checkout";
 import Summary from "./components/Summary";
 import api from "../src/utils/api";
 import CurrentUserContext from "./contexts/CurrentUserContext";
-import CurrentCartContext from "./contexts/CurrentCartContext";
 
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";

@@ -231,7 +231,7 @@ export default function Profile({ user }) {
                         className="font-semibold text-orange-400 hover:text-orange-500"
                         onClick={handleSubmit}
                       >
-                        Update
+                        Guardar
                       </button>
                     </dd>
                   </div>

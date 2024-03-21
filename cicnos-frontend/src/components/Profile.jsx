@@ -12,6 +12,7 @@ import {
   XMarkIcon,
   ArrowLeftStartOnRectangleIcon,
 } from "@heroicons/react/24/outline";
+import api from "../utils/api";
 
 const navigation = [
   { name: "Inicio", to: "/" },
@@ -35,6 +36,22 @@ export default function Profile({ user }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [automaticTimezoneEnabled, setAutomaticTimezoneEnabled] =
     useState(true);
+  const [name, setName] = useState("");
+  const [about, setAbout] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    api.setUserInfo({ name, about });
+    console.log(name, about);
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleAboutChange = (e) => {
+    setAbout(e.target.value);
+  };
 
   return (
     <>
@@ -191,51 +208,61 @@ export default function Profile({ user }) {
                 This information will be displayed publicly so be careful what
                 you share.
               </p>
-
-              <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
-                <div className="pt-6 sm:flex">
-                  <dt className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
-                    Nombre
-                  </dt>
-                  <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                    <div className="text-gray-900">{user.data.name}</div>
-                    <button
-                      type="button"
-                      className="font-semibold text-indigo-600 hover:text-indigo-500"
-                    >
-                      Update
-                    </button>
-                  </dd>
-                </div>
-                <div className="pt-6 sm:flex">
-                  <dt className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
-                    Email
-                  </dt>
-                  <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                    <div className="text-gray-900">{user.data.email}</div>
-                    <button
-                      type="button"
-                      className="font-semibold text-indigo-600 hover:text-indigo-500"
-                    >
-                      Update
-                    </button>
-                  </dd>
-                </div>
-                <div className="pt-6 sm:flex">
-                  <dt className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
-                    Descripión
-                  </dt>
-                  <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
-                    <div className="text-gray-900">{user.data.about}</div>
-                    <button
-                      type="button"
-                      className="font-semibold text-indigo-600 hover:text-indigo-500"
-                    >
-                      Update
-                    </button>
-                  </dd>
-                </div>
-              </dl>
+              <form>
+                <dl className="mt-6 space-y-6 divide-y divide-gray-100 border-t border-gray-200 text-sm leading-6">
+                  <div className="pt-6 sm:flex">
+                    <dt className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
+                      Nombre
+                    </dt>
+                    <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                      <div className="text-gray-900">
+                        <input
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6"
+                          type="text"
+                          id="name"
+                          name="name"
+                          placeholder={user.data.name}
+                          value={name}
+                          onChange={handleNameChange}
+                        ></input>
+                      </div>
+                      <button
+                        type="button"
+                        className="font-semibold text-orange-400 hover:text-orange-500"
+                        onClick={handleSubmit}
+                      >
+                        Update
+                      </button>
+                    </dd>
+                  </div>
+                  <div className="pt-6 sm:flex">
+                    <dt className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
+                      Descripión
+                    </dt>
+                    <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                      <div className="text-gray-900">
+                        <input
+                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-300 sm:text-sm sm:leading-6"
+                          type="text"
+                          id="about"
+                          name="about"
+                          placeholder={user.data.about}
+                          value={about}
+                          onChange={handleAboutChange}
+                        ></input>
+                      </div>
+                    </dd>
+                  </div>
+                  <div className="pt-6 sm:flex">
+                    <dt className="font-medium text-gray-900 sm:w-64 sm:flex-none sm:pr-6">
+                      Email
+                    </dt>
+                    <dd className="mt-1 flex justify-between gap-x-6 sm:mt-0 sm:flex-auto">
+                      <div className="text-gray-900">{user.data.email}</div>
+                    </dd>
+                  </div>
+                </dl>
+              </form>
             </div>
           </div>
         </main>

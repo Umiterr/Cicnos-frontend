@@ -15,7 +15,6 @@ export default function Overview(props) {
 
   const { productId } = useParams();
 
-  // Buscar el producto correspondiente usando el productId
   const product = products.find(
     (product) => product.id === parseInt(productId)
   );

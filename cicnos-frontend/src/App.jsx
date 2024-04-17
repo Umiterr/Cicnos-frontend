@@ -197,7 +197,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/Summary" element={<Summary />} />
 
-          <Route exact path="/tienda" element={<Shop products={products} />} />
+          {/* <Route exact path="/tienda" element={<Shop products={products} />} /> */}
           <Route
             path="/product-overview/:productId"
             element={<Overview products={products} />}

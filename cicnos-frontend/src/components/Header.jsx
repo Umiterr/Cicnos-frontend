@@ -89,12 +89,12 @@ export default function Header() {
             Imprime tu diseño
           </Link>
 
-          <Link
+          {/* <Link
             to="tienda"
             className="text-sm font-semibold leading-6 text-gray-900 self-center"
           >
             Tienda
-          </Link>
+          </Link> */}
 
           <Popover className="relative">
             <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">

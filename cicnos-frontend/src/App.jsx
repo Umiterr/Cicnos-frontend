@@ -153,14 +153,7 @@ function App() {
               </>
             }
           />
-          {/*  <Route
-            path="/tienda"
-            element={
-              <>
-                <Shop />
-              </>
-            }
-          /> */}
+
           <Route
             path="/quienes-somos"
             element={

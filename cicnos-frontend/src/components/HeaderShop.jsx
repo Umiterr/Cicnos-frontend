@@ -201,7 +201,7 @@ const navigation = {
   ],
   pages: [
     { name: "Company", href: "#" },
-    { name: "Stores", href: "#" },
+    { name: "Tienda", href: "/tienda" },
   ],
 };
 
@@ -291,8 +291,8 @@ export default function HeaderShop() {
                               />
                               <div className="flex flex-col justify-end">
                                 <div className="bg-white bg-opacity-60 p-4 text-base sm:text-sm">
-                                  <a
-                                    href={item.href}
+                                  <Link
+                                    to={item.href}
                                     className="font-medium text-gray-900"
                                   >
                                     <span
@@ -300,7 +300,7 @@ export default function HeaderShop() {
                                       aria-hidden="true"
                                     />
                                     {item.name}
-                                  </a>
+                                  </Link>
                                   <p
                                     aria-hidden="true"
                                     className="mt-0.5 text-gray-700 sm:mt-1"
@@ -329,12 +329,12 @@ export default function HeaderShop() {
                                 >
                                   {section.items.map((item) => (
                                     <li key={item.name} className="flow-root">
-                                      <a
-                                        href={item.href}
+                                      <Link
+                                        to={item.href}
                                         className="-m-2 block p-2 text-gray-500"
                                       >
                                         {item.name}
-                                      </a>
+                                      </Link>
                                     </li>
                                   ))}
                                 </ul>
@@ -350,18 +350,18 @@ export default function HeaderShop() {
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   {navigation.pages.map((page) => (
                     <div key={page.name} className="flow-root">
-                      <a
-                        href={page.href}
+                      <Link
+                        to={page.href}
                         className="-m-2 block p-2 font-medium text-gray-900"
                       >
                         {page.name}
-                      </a>
+                      </Link>
                     </div>
                   ))}
                 </div>
 
                 <div className="border-t border-gray-200 px-4 py-6">
-                  <a href="#" className="-m-2 flex items-center p-2">
+                  <Link to="#" className="-m-2 flex items-center p-2">
                     <img
                       src="https://tailwindui.com/img/flags/flag-canada.svg"
                       alt=""
@@ -371,7 +371,7 @@ export default function HeaderShop() {
                       CAD
                     </span>
                     <span className="sr-only">, change currency</span>
-                  </a>
+                  </Link>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -396,13 +396,13 @@ export default function HeaderShop() {
                   <Bars3Icon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="ml-2 p-2 text-gray-400 hover:text-gray-500"
                 >
                   <span className="sr-only">Search</span>
                   <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
-                </a>
+                </Link>
               </div>
 
               {/* Flyout menus */}
@@ -470,8 +470,8 @@ export default function HeaderShop() {
                                             />
                                             <div className="flex flex-col justify-end">
                                               <div className="bg-white bg-opacity-60 p-4 text-sm">
-                                                <a
-                                                  href={item.href}
+                                                <Link
+                                                  to={item.href}
                                                   className="font-medium text-gray-900"
                                                 >
                                                   <span
@@ -479,7 +479,7 @@ export default function HeaderShop() {
                                                     aria-hidden="true"
                                                   />
                                                   {item.name}
-                                                </a>
+                                                </Link>
                                                 <p
                                                   aria-hidden="true"
                                                   className="mt-0.5 text-gray-700 sm:mt-1"
@@ -517,12 +517,12 @@ export default function HeaderShop() {
                                                       key={item.name}
                                                       className="flex"
                                                     >
-                                                      <a
-                                                        href={item.href}
+                                                      <Link
+                                                        to={item.href}
                                                         className="hover:text-gray-800"
                                                       >
                                                         {item.name}
-                                                      </a>
+                                                      </Link>
                                                     </li>
                                                   ))}
                                                 </ul>
@@ -543,13 +543,13 @@ export default function HeaderShop() {
                   ))}
 
                   {navigation.pages.map((page) => (
-                    <a
+                    <Link
                       key={page.name}
-                      href={page.href}
+                      to={page.href}
                       className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       {page.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </Popover.Group>
@@ -561,8 +561,8 @@ export default function HeaderShop() {
               </Link>
 
               <div className="flex flex-1 items-center justify-end">
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="hidden text-gray-700 hover:text-gray-800 lg:flex lg:items-center"
                 >
                   <img
@@ -572,16 +572,16 @@ export default function HeaderShop() {
                   />
                   <span className="ml-3 block text-sm font-medium">CAD</span>
                   <span className="sr-only">, change currency</span>
-                </a>
+                </Link>
 
                 {/* Search */}
-                <a
-                  href="#"
+                <Link
+                  to="#"
                   className="ml-6 hidden p-2 text-gray-400 hover:text-gray-500 lg:block"
                 >
                   <span className="sr-only">Search</span>
                   <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
-                </a>
+                </Link>
 
                 {/* Account */}
                 <Link

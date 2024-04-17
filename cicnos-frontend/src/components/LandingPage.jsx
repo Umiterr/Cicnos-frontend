@@ -1,11 +1,13 @@
+import { Link } from "react-router-dom";
+
 const posts = [
   {
     id: 1,
     title: "Publicidad",
-    to: "publicidad",
+    href: "publicidad",
     description: "",
     imageUrl:
-      "https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
+      "https://cdn.pixabay.com/photo/2014/07/05/08/15/shelf-384558_1280.jpg",
     date: "",
     datetime: "",
     author: {
@@ -19,7 +21,7 @@ const posts = [
     href: "#",
     description: "",
     imageUrl:
-      "https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
+      "https://cdn.pixabay.com/photo/2019/12/19/09/07/deco-4705709_1280.jpg",
     date: "",
     datetime: "",
     author: {
@@ -33,7 +35,7 @@ const posts = [
     href: "#",
     description: "",
     imageUrl:
-      "https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
+      "https://cdn.pixabay.com/photo/2017/08/01/11/48/woman-2564660_1280.jpg",
     date: "",
     datetime: "",
     author: {
@@ -58,12 +60,13 @@ export default function LandingPage() {
                   <div className="flip-card-front">
                     <p className="title">{post.title}</p>
                   </div>
-                  <div className="flip-card-back">
-                    <a href={post.href} className="flip-card-back-link">
-                      <p className="title">BACK</p>
-                      <p>Leave Me</p>
-                    </a>
-                  </div>
+
+                  <Link
+                    to={post.href}
+                    className="flip-card-back-link flip-card-back"
+                  >
+                    <img src={post.imageUrl} alt="${post.title}" />
+                  </Link>
                 </div>
               </div>
             </article>
